@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spotify New Releases</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet">
+    <link href="styles.css" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="panel-group">
+    <div id="albums"></div>
+</div>
+<script>
+    $(document).ready(function () {
+        $.ajax({
+            type: 'GET',
+            url: 'https://wt-60071728e15db21e4b0a244295f38edb-0.run.webtask.io/SpotifyHealth',
+            success: function (data) {
+                data.albums.items.forEach(function (item) {
+                    $('#albums').append(
+                        '<div class="panel panel-info width-small width-small">' +
+                        '<div class="panel-heading">' + item.name + '</div>' +
+                        '<div class="panel-body">' +
+                        '<a href="' + item.external_urls.spotify + '">' +
+                        '<img src="' + item.images[1].url + '"></a></div>' +
+                        '</div>'
+                    );
+                })
+            }
+        });
+    });
+</script>
+</body>
+</html>
